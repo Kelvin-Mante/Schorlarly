@@ -4,8 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Scholarly</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
 
   <header>
     <h1>Scholarly</h1>
@@ -13,16 +18,21 @@
   </header>
 
   <main>
-    <section id="streak">
+    <section id="streak" class="card">
       <h2>Attendance Streak</h2>
+      <p class="big-number">0</p>
+      <p class="muted">days in a row</p>
+      <button class="btn">Mark attended</button>
     </section>
 
-    <section id="schedule">
+    <section id="schedule" class="card">
       <h2>Upcoming Activities</h2>
+      <p class="muted">Nothing scheduled yet.</p>
     </section>
 
-    <section id="motivation">
+    <section id="motivation" class="card">
       <h2>Daily Motivation</h2>
+      <p class="muted">Show up today. Future you will say thanks.</p>
     </section>
   </main>
 
