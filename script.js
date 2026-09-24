@@ -47,7 +47,13 @@ function initLoginForm() {
     const password = document.getElementById("password").value;
     btn.disabled = true;
     btn.textContent = "Logging in...";
-    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+    const { data, error } = await supabaseClient.auth.signUp({
+  email,
+  password,
+  options: {
+    emailRedirectTo: "https://heroic-froyo-4a928d.netlify.app/login.html"
+  }
+});
     if (error) {
       showMessage(messageEl, error.message, "error");
       btn.disabled = false;
