@@ -71,6 +71,56 @@ async function guardDashboard() {
   if (emailEl) emailEl.textContent = session.user.email;
 }
 
+function initForgotPasswordForm() {
+  const form = document.getElementById("forgotPasswordForm");
+  if (!form) return;
+  const messageEl = document.getElementById("message");
+  const btn = document.getElementById("submitBtn");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = document.getElementById("email").value.trim();
+    btn.disabled = true;
+    btn.textContent = "Sending email...";
+    try {
+      const redirectTo = new URL("reset-password.html", window.location.href).href;
+      const { error } = await supabaseClient.auth.resetPasswordForEmail(email, { redirectTo });
+      if (error) throw error;
+      showMessage(messageEl, "If an account exists for that email, a password reset link is on its way.", "success");
+    } catch (error) {
+      showMessage(messageEl, error.message || "Could not send the reset email. Please try again.", "error");
+    }
+    btn.disabled = false;
+    btn.textContent = "Send Reset Link";
+  });
+}
+
+function initResetPasswordForm() {
+  const form = document.getElementById("resetPasswordForm");
+  if (!form) return;
+  const messageEl = document.getElementById("message");
+  const btn = document.getElementById("submitBtn");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const password = document.getElementById("newPassword").value;
+    btn.disabled = true;
+    btn.textContent = "Updating...";
+    try {
+      const { data: { session }, error: sessionError } = await supabaseClient.auth.getSession();
+      if (sessionError) throw sessionError;
+      if (!session) throw new Error("This reset link is invalid or expired. Request a new one.");
+      const { error } = await supabaseClient.auth.updateUser({ password });
+      if (error) throw error;
+      showMessage(messageEl, "Password updated. You can now log in with your new password.", "success");
+      setTimeout(() => { window.location.href = "login.html"; }, 1500);
+    } catch (error) {
+      showMessage(messageEl, error.message || "Could not update your password. Please request a new link.", "error");
+      btn.disabled = false;
+      btn.textContent = "Update Password";
+    }
+  });
+}
 function initLogoutButton() {
   const logoutBtn = document.getElementById("logoutBtn");
   if (!logoutBtn) return;
@@ -82,5 +132,7 @@ function initLogoutButton() {
 
 initSignupForm();
 initLoginForm();
+initForgotPasswordForm();
+initResetPasswordForm();
 guardDashboard();
 initLogoutButton();
