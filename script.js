@@ -1,4 +1,4 @@
-const SUPABASE_URL = "https://ufziathygtqlbjapwkrn.supabase.co";
+﻿const SUPABASE_URL = "https://ufziathygtqlbjapwkrn.supabase.co";
 const SUPABASE_KEY = "sb_publishable_Ss4cLwL-E-TAi9flBL_PLg_ACx49RlI";
 
 const supabaseClient = window.supabase.createClient(
@@ -47,13 +47,7 @@ function initLoginForm() {
     const password = document.getElementById("password").value;
     btn.disabled = true;
     btn.textContent = "Logging in...";
-    const { data, error } = await supabaseClient.auth.signUp({
-  email,
-  password,
-  options: {
-    emailRedirectTo: "https://heroic-froyo-4a928d.netlify.app/login.html"
-  }
-});
+    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
     if (error) {
       showMessage(messageEl, error.message, "error");
       btn.disabled = false;
