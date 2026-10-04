@@ -1,0 +1,355 @@
+/* ========================================
+   SCHOLARLY — GLOBAL STYLES
+   ======================================== */
+
+/* ----------------------------------------
+   1. DESIGN TOKENS
+   Colors, spacing, and motion defined once
+   and reused everywhere.
+   ---------------------------------------- */
+:root {
+    /* Colors */
+    --bg-primary: #05070d;
+    --bg-panel: rgba(11, 16, 32, 0.8);
+    --accent-blue: #1683ff;
+    --accent-blue-soft: rgba(22, 131, 255, 0.25);
+    --text-primary: #f5f7ff;
+    --text-muted: #8b95aa;
+    --line: rgba(255, 255, 255, 0.08);
+
+    /* Glass */
+    --glass-fill: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.14);
+    --glass-highlight:
+        inset 0 1px 0 rgba(255, 255, 255, 0.25),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.04);
+
+    /* Spacing scale (multiples of 8) */
+    --space-1: 8px;
+    --space-2: 16px;
+    --space-3: 24px;
+    --space-4: 32px;
+    --space-5: 48px;
+    --space-6: 64px;
+    --space-7: 96px;
+
+    /* Shape + motion */
+    --radius-lg: 24px;
+    --radius-md: 12px;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+/* ----------------------------------------
+   2. RESET + BASE
+   ---------------------------------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    background: var(--bg-primary) url("../assets/scholarly-bg.png") center / cover no-repeat fixed;
+    color: var(--text-primary);
+
+    font-family: "Manrope", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Soft color glows behind everything so the glass has something to blur.
+   Delete this block if your background image already has enough color. */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+        radial-gradient(600px circle at 15% 10%, rgba(22, 131, 255, 0.28), transparent 60%),
+        radial-gradient(520px circle at 85% 85%, rgba(120, 90, 255, 0.2), transparent 60%);
+}
+
+h1, h2, h3 {
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+}
+
+p {
+    color: var(--text-muted);
+}
+
+
+/* ----------------------------------------
+   3. HEADER
+   ---------------------------------------- */
+.site-header {
+    padding: var(--space-5) var(--space-3) 0;
+    text-align: center;
+}
+
+.site-header h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.site-header p {
+    font-size: 0.95rem;
+}
+
+
+/* ----------------------------------------
+   4. MAIN CARD
+   One glass panel that holds the page content.
+   ---------------------------------------- */
+main {
+    flex: 1;
+    padding: var(--space-5) var(--space-3);
+}
+
+.card {
+    position: relative;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: clamp(var(--space-4), 6vw, var(--space-7)) clamp(var(--space-3), 5vw, var(--space-6));
+
+    /* Frosted glass: translucent fill, heavy blur, boosted color */
+    background: rgba(18, 26, 48, 0.45);
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+
+    border: 1px solid var(--glass-border);
+    border-radius: 32px;
+
+    box-shadow:
+        var(--glass-highlight),
+        0 24px 60px rgba(0, 0, 0, 0.45),
+        0 0 80px rgba(22, 131, 255, 0.12);
+}
+
+/* Light sheen across the top-left, like light catching the glass */
+.card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(
+        145deg,
+        rgba(255, 255, 255, 0.14) 0%,
+        rgba(255, 255, 255, 0.03) 30%,
+        transparent 55%
+    );
+    pointer-events: none;
+}
+
+/* Keep real content above the sheen */
+.card > * {
+    position: relative;
+}
+
+
+/* ----------------------------------------
+   5. HERO + FEATURES
+   ---------------------------------------- */
+.hero {
+    text-align: center;
+}
+
+.hero h2 {
+    max-width: 22ch;
+    margin: 0 auto;
+    font-size: clamp(2rem, 4.5vw, 2.75rem);
+    font-weight: 600;
+    text-wrap: balance;
+}
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-4);
+
+    margin-top: var(--space-6);
+    text-align: left;
+}
+
+.features article {
+    padding: var(--space-3);
+
+    background: var(--glass-fill);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+
+    box-shadow:
+        var(--glass-highlight),
+        0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.features h3 {
+    margin-bottom: var(--space-1);
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+.features p {
+    font-size: 0.95rem;
+}
+
+
+/* ----------------------------------------
+   6. CALL TO ACTION
+   ---------------------------------------- */
+.cta {
+    margin-top: var(--space-7);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--line);
+    text-align: center;
+}
+
+.cta h2 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 600;
+    margin-bottom: var(--space-2);
+}
+
+.cta p {
+    max-width: 46ch;
+    margin: 0 auto;
+    font-size: 1.05rem;
+}
+
+.cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+}
+
+
+/* ----------------------------------------
+   7. BUTTONS
+   ---------------------------------------- */
+.btn {
+    display: inline-block;
+    padding: 14px 32px;
+
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--text-primary);
+
+    /* Pill shape, like iOS controls */
+    border: 1px solid var(--glass-border);
+    border-radius: 999px;
+
+    transition:
+        transform 0.25s var(--ease),
+        box-shadow 0.25s var(--ease),
+        background 0.25s var(--ease);
+}
+
+/* Tinted blue glass */
+.btn-primary {
+    background: linear-gradient(
+        180deg,
+        rgba(70, 165, 255, 0.95),
+        rgba(22, 131, 255, 0.85)
+    );
+    box-shadow:
+        var(--glass-highlight),
+        0 8px 28px rgba(22, 131, 255, 0.35);
+}
+
+/* Clear glass */
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.07);
+    box-shadow: var(--glass-highlight);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn-primary:hover {
+    box-shadow:
+        var(--glass-highlight),
+        0 12px 36px rgba(22, 131, 255, 0.55);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.13);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn:focus-visible {
+    outline: 2px solid var(--text-primary);
+    outline-offset: 3px;
+}
+
+
+/* ----------------------------------------
+   8. FOOTER
+   ---------------------------------------- */
+.site-footer {
+    padding: var(--space-4) var(--space-3);
+    text-align: center;
+}
+
+.site-footer p {
+    font-size: 0.85rem;
+}
+
+
+/* ----------------------------------------
+   9. PAGE-LOAD ANIMATION
+   One staggered sequence: header, card,
+   headline, features, then the CTA.
+   ---------------------------------------- */
+@keyframes rise {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.site-header       { animation: rise 0.8s var(--ease) both; }
+.card              { animation: fade 0.9s ease 0.1s both; }
+.hero h2           { animation: rise 0.8s var(--ease) 0.25s both; }
+.features article  { animation: rise 0.8s var(--ease) both; }
+.cta               { animation: rise 0.8s var(--ease) 0.8s both; }
+
+.features article:nth-child(1) { animation-delay: 0.4s; }
+.features article:nth-child(2) { animation-delay: 0.5s; }
+.features article:nth-child(3) { animation-delay: 0.6s; }
+
+
+/* ----------------------------------------
+   10. ACCESSIBILITY
+   Respect people who turn animations off.
+   ---------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}

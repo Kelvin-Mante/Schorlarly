@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | Scholarly</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+
+<body>
+
+    <header class="site-header">
+        <h1>Scholarly</h1>
+        <p>Show up. Stay consistent.</p>
+    </header>
+
+    <main>
+        <div class="card auth-card">
+            <h2>Create your account</h2>
+            <p>Start building your streak today.</p>
+            <p id="form-message" class="form-message"></p>
+
+            <form id="signup-form">
+                <div class="field">
+                    <label for="full-name">Full name</label>
+                    <input type="text" id="full-name" name="full-name" placeholder="e.g. Ama Mensah" autocomplete="name" required>
+                </div>
+
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+                </div>
+
+                <div class="field">
+                    <label for="school">School</label>
+                    <input type="text" id="school" name="school" placeholder="e.g. UPSA" required>
+                </div>
+
+                <div class="field">
+                    <label for="programme">Programme</label>
+                    <input type="text" id="programme" name="programme" placeholder="e.g. Actuarial Science" required>
+                </div>
+
+                <div class="field">
+                    <label for="student-id">Student ID</label>
+                    <input type="text" id="student-id" name="student-id" placeholder="Your student ID" required>
+                </div>
+
+                <!-- Age and Level sit side by side -->
+                <div class="field-row">
+                    <div class="field">
+                        <label for="age">Age</label>
+                        <input type="number" id="age" name="age" placeholder="e.g. 20" min="14" max="99" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="level">Level</label>
+                        <input type="text" id="level" name="level" placeholder="e.g. 300" required>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="At least 8 characters" minlength="8" autocomplete="new-password" required>
+                </div>
+
+                <div class="field">
+                    <label for="confirm-password">Confirm password</label>
+                    <input type="password" id="confirm-password" name="confirm-password" placeholder="Type it again" minlength="8" autocomplete="new-password" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Create Account</button>
+            </form>
+
+            <p>Already have an account? <a href="login.html">Log in</a></p>
+        </div>
+    </main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script src="js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+/* ========================================
+   SCHOLARLY — AUTH PAGES (login, signup...)
+   ======================================== */
+
+/* Narrower, centered card for forms */
+.auth-card {
+    max-width: 440px;
+    padding: var(--space-5) var(--space-4);
+    text-align: center;
+}
+
+.auth-card h2 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-bottom: var(--space-1);
+}
+
+
+/* ----------------------------------------
+   FORM LAYOUT
+   flex + column = everything stacks vertically.
+   gap = even space between each item.
+   ---------------------------------------- */
+.auth-card form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+
+    margin: var(--space-4) 0;
+    text-align: left;
+}
+
+/* One label + one input, stacked */
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+}
+
+.field label {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+
+/* ----------------------------------------
+   INPUTS
+   Glass look instead of the default white box.
+   ---------------------------------------- */
+.field input {
+    width: 100%;
+    padding: 14px 18px;
+
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--text-primary);
+
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--glass-border);
+    border-radius: 14px;
+    outline: none;
+
+    transition:
+        border-color 0.25s var(--ease),
+        box-shadow 0.25s var(--ease),
+        background 0.25s var(--ease);
+}
+
+.field input::placeholder {
+    color: var(--text-muted);
+    opacity: 0.7;
+}
+
+/* Glows blue when you click into it */
+.field input:focus {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 4px rgba(22, 131, 255, 0.2);
+}
+
+/* Stops Chrome's autofill from turning the box white/yellow */
+.field input:-webkit-autofill {
+    -webkit-text-fill-color: var(--text-primary);
+    box-shadow: 0 0 0 1000px #121a30 inset;
+    caret-color: var(--text-primary);
+}
+
+
+/* ----------------------------------------
+   LINKS + BUTTON
+   ---------------------------------------- */
+.auth-card a {
+    color: #6db3ff;
+    text-decoration: none;
+}
+
+.auth-card a:hover {
+    text-decoration: underline;
+}
+
+/* "Forgot password?" sits on the right */
+.auth-card form a {
+    align-self: flex-end;
+    font-size: 0.875rem;
+}
+
+.auth-card button.btn {
+    width: 100%;
+    font-family: inherit;
+    cursor: pointer;
+}
+/* ----------------------------------------
+   TWO FIELDS SIDE BY SIDE (Age + Level)
+   ---------------------------------------- */
+.field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+}
+/* ----------------------------------------
+   FORM MESSAGE (errors / success)
+   ---------------------------------------- */
+.form-message {
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* Takes up no space until there's a message */
+.form-message:empty {
+    display: none;
+}
+
+.form-message.error   { color: #ff8a8a; }
+.form-message.success { color: #7be3a8; }
